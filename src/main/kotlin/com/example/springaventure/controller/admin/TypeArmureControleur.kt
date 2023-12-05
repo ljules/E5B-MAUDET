@@ -23,13 +23,13 @@ class TypeArmureControleur(
      * @param model Modèle utilisé pour transmettre des données à la vue.
      * @return Le nom de la vue à afficher.
      */
-    @GetMapping("/admin/typeArmure")
+    @GetMapping("/admin/typearmure")
     fun index(model: Model): String {
         // Récupère tous les types d'armures depuis la base de données
         val typeArmures = this.typeArmureDao.findAll()
         // Ajoute la liste des types d'armures au modèle pour transmission à la vue
         model.addAttribute("typeArmures", typeArmures)
-        return "admin/typeArmure/index"
+        return "admin/typearmure/index"
     }
 
     /**
@@ -39,11 +39,11 @@ class TypeArmureControleur(
      * @param model Modèle utilisé pour transmettre des données à la vue.
      * @return Le nom de la vue à afficher.
      */
-    @GetMapping("/admin/typeArmure/{id}")
+    @GetMapping("/admin/typearmure/{id}")
     fun show(@PathVariable id: Long, model: Model): String {
         val typeArmure = this.typeArmureDao.findById(id).orElseThrow()
         model.addAttribute("typeArmure", typeArmure)
-        return "admin/typeArmure/show"
+        return "admin/typearmure/show"
     }
 
     /**
@@ -52,11 +52,11 @@ class TypeArmureControleur(
      * @param model Modèle utilisé pour transmettre des données à la vue.
      * @return Le nom de la vue à afficher.
      */
-    @GetMapping("/admin/typeArmure/create")
+    @GetMapping("/admin/typearmure/create")
     fun create(model: Model): String {
         val nouvelleTypeArmure = TypeArmure(null, "", 1)
         model.addAttribute("nouvelleTypeArmure", nouvelleTypeArmure)
-        return "admin/typeArmure/create"
+        return "admin/typearmure/create"
     }
 
     /**
@@ -66,14 +66,14 @@ class TypeArmureControleur(
      * @param redirectAttributes Attributs de redirection pour ajouter des messages flash.
      * @return Redirection vers la page d'index des types d'armures administratifs.
      */
-    @PostMapping("/admin/typeArmure")
+    @PostMapping("/admin/typearmure")
     fun store(
         @ModelAttribute nouvelleTypeArmure: TypeArmure,
         redirectAttributes: RedirectAttributes
     ): String {
         val savedTypeArmure = this.typeArmureDao.save(nouvelleTypeArmure)
         redirectAttributes.addFlashAttribute("msgSuccess", "Enregistrement de ${savedTypeArmure.nom} réussi")
-        return "redirect:/admin/typeArmure"
+        return "redirect:/admin/typearmure"
     }
 
     /**
@@ -83,11 +83,11 @@ class TypeArmureControleur(
      * @param model Modèle utilisé pour transmettre des données à la vue.
      * @return Le nom de la vue à afficher.
      */
-    @GetMapping("/admin/typeArmure/{id}/edit")
+    @GetMapping("/admin/typearmure/{id}/edit")
     fun edit(@PathVariable id: Long, model: Model): String {
         val typeArmure = this.typeArmureDao.findById(id).orElseThrow()
         model.addAttribute("typeArmure", typeArmure)
-        return "admin/typeArmure/edit"
+        return "admin/typearmure/edit"
     }
 
     /**
@@ -97,7 +97,7 @@ class TypeArmureControleur(
      * @param redirectAttributes Attributs de redirection pour ajouter des messages flash.
      * @return Redirection vers la page d'index des types d'armures administratifs.
      */
-    @PostMapping("/admin/typeArmure/update")
+    @PostMapping("/admin/typearmure/update")
     fun update(
         @ModelAttribute typeArmure: TypeArmure,
         redirectAttributes: RedirectAttributes
@@ -111,7 +111,7 @@ class TypeArmureControleur(
 
         val savedTypeArmure = this.typeArmureDao.save(typeArmureModifier)
         redirectAttributes.addFlashAttribute("msgSuccess", "Modification de ${savedTypeArmure.nom} réussie")
-        return "redirect:/admin/typeArmure"
+        return "redirect:/admin/typearmure"
     }
 
     /**
@@ -121,12 +121,12 @@ class TypeArmureControleur(
      * @param redirectAttributes Attributs de redirection pour ajouter des messages flash.
      * @return Redirection vers la page d'index des types d'armures administratifs.
      */
-    @PostMapping("/admin/typeArmure/delete")
+    @PostMapping("/admin/typearmure/delete")
     fun delete(@RequestParam id: Long, redirectAttributes: RedirectAttributes): String {
         val typeArmure =
             this.typeArmureDao.findById(id).orElseThrow()
         this.typeArmureDao.delete(typeArmure)
         redirectAttributes.addFlashAttribute("msgSuccess", "Suppression de ${typeArmure.nom} réussie")
-        return "redirect:/admin/typeArmure"
+        return "redirect:/admin/typearmure"
     }
 }
